@@ -1,0 +1,67 @@
+<style>
+    container {
+        display: flex;
+        height:100%;
+    }
+    #game {
+        margin: auto;
+        width: 300px;
+        height: 300px;
+    }
+    #score {
+        height: 20px;
+    }
+    #game-field {
+        position: relative;
+        width: 300px;
+        height: 280px;
+    }
+    #target {
+        position: absolute;
+        background-color: red;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+    }
+</style>
+<body>
+    <container>
+        <div id="game">
+            <div id="score">Score: 0</div>
+            <div id="game-field">
+                <div id="target"></div>
+            </div>
+        </div>
+    </container>
+</body>
+<script>
+    const INTERVAL = 1 * 1000; // sec
+    const rnd = (min, max) => () => Math.random() * (max - min) + min;
+
+    const d = document.getElementById("target");
+    const s = document.getElementById("score")
+
+    const move = (x, y) => {
+        d.style.left = x + 'px';
+        d.style.top = y + 'px';
+    };
+
+    const plusOne = () => {
+        let n = 0;
+        return () => ++n;
+    }
+
+    const num = plusOne();
+
+    const rndX = rnd(0, 280);
+    const rndY = rnd(0, 280);
+
+    const action = () => move(rndX(), rndY());
+
+    const counter = () => {
+        s.innerHTML = "Score: " + num();
+    }
+
+    const intervalID = window.setInterval(action, INTERVAL);
+    d.addEventListener("click", counter)
+</script>
