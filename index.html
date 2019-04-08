@@ -21,10 +21,16 @@
         background-color: red;
         width: 20px;
         height: 20px;
-        border-radius: 50%;
+        border-radius: 80% 15% 55% 50% / 55% 15% 80% 50%;
+        border: 1px solid #1c446b;
+        transform: rotate(-45deg);
+        margin-top: 30px;
+        background: #ffc000;
+        transition: transform 1s;
     }
 </style>
 <body>
+    <audio id="egg" src="egg.mp3" autoplay="false"></audio>
     <container>
         <div id="game">
             <div id="score">Score: 0</div>
@@ -59,7 +65,11 @@
     const action = () => move(rndX(), rndY());
 
     const counter = () => {
+        const sound = document.getElementById("egg");
+        sound.play();
         s.innerHTML = "Score: " + num();
+        d.style.transform = 'rotate(45deg)';
+        window.setTimeout(() => d.style.transform = 'rotate(-45deg)', 500);
     }
 
     const intervalID = window.setInterval(action, INTERVAL);
